@@ -7,14 +7,14 @@ PigmentLayer::PigmentLayer() {
     fbo->begin();
     ofClear(0.f, 0.f, 0.f, 255.f);
     fbo->end();
-    shader.load("shader.vert", "pigmentBleeding.frag");
 }
 
 PigmentLayer::~PigmentLayer() {
     
 }
 
-ofFbo* PigmentLayer::update(ofFbo* water, ofFbo* noise, ofFbo* temp) {
+
+ofFbo* PigmentLayer::update(ofFbo* water, ofFbo* noise, ofFbo* temp, ofShader& shader) {
     temp->begin();
     ofClear(0.f, 0.f, 0.f, 0.f);
     shader.begin();
@@ -24,9 +24,10 @@ ofFbo* PigmentLayer::update(ofFbo* water, ofFbo* noise, ofFbo* temp) {
     shader.end();
     temp->end();
     
-    
     ofFbo *swap = fbo;
     fbo = temp;
     return swap;
 }
+
+
 

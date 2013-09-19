@@ -7,6 +7,7 @@ WaterColorCanvas::WaterColorCanvas() {
     pigmentFixShader.load("shader.vert", "pigmentFix.frag");
     pigmentRenderShader.load("shader.vert", "pigmentRender.frag");
     blurShader.load("shader.vert", "blur.frag");
+    pigmentShader.load("shader.vert", "pigmentBleeding.frag");
     
     tempFbo = new ofFbo();
     tempFbo->allocate(1280, 720, GL_RGBA32F); //temporary buffer
@@ -23,7 +24,7 @@ WaterColorCanvas::WaterColorCanvas() {
 void WaterColorCanvas::update() {
     noiseFbo = applyShader(noiseShader, noiseFbo, SHADING_TYPE_NOISE);
     for (int i = 0; i < pigments.size(); i ++) {
-        tempFbo = pigments[i].update(waterFbo, noiseFbo, tempFbo);
+        tempFbo = pigments[i].update(waterFbo, noiseFbo, tempFbo, pigmentShader);
     }
     waterFbo = applyShader(waterBleedingShader, waterFbo, SHADING_TYPE_WATER_BLEEDING);
     for (int i = 0; i < pigments.size(); i ++)  {

@@ -9,18 +9,20 @@ public:
     WaterColorCanvas();
     void update();
     void draw();
-    ofFbo* applyShader(ofShader& shader, ofFbo* fbo, int type, int pigmentNum = 0);
+    void addPigment(ofColor color);
     void beginPigmentDraw(int i);
     void endPigmentDraw();
     void beginWaterDraw();
     void endWaterDraw();
-    
     void clearLayers();
+    
+    
+private:
+    ofFbo* applyShader(ofShader& shader, ofFbo* fbo, int type, int pigmentNum = 0);
     void clearFbo(ofFbo *fbo, int r, int g, int b);
-    void addPigment(ofColor color);
     
     ofColor color;
-    ofShader noiseShader, waterBleedingShader, waterRenderShader, pigmentFixShader, pigmentRenderShader, blurShader;
+    ofShader noiseShader, waterBleedingShader, waterRenderShader, pigmentFixShader, pigmentRenderShader, blurShader, pigmentShader;;
     ofFbo *tempFbo, *noiseFbo, *waterFbo, *paperFbo;
     vector<PigmentLayer> pigments;
     int currentPigment;
@@ -36,5 +38,4 @@ public:
     static const int SHADING_TYPE_PIGMENT_FIX = 3;
     static const int SHADING_TYPE_PIGMENT_RENDER = 4;
     static const int SHADING_TYPE_BLUR = 5;
-    
 };

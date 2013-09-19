@@ -5,9 +5,7 @@ class PigmentLayer {
 public:
 	PigmentLayer();
 	~PigmentLayer();
-	ofFbo* update(ofFbo* water, ofFbo* noise, ofFbo* temp);
-
+	ofFbo* update(ofFbo* water, ofFbo* noise, ofFbo* temp, ofShader& shader);
     ofColor color;
     ofFbo *fbo;
-    ofShader shader;
 };
