@@ -2,7 +2,6 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-	ofBackground(255,255,255);
 	frameByframe = false;
 
 	movie.loadMovie("movie/fingers.mov");
@@ -10,6 +9,7 @@ void testApp::setup(){
     shader.load("shader/shader.vert", "shader/shader.frag");
     fbo.allocate(movie.width, movie.height);
     frameUpdate();
+    
 }
 
 //--------------------------------------------------------------
@@ -18,10 +18,11 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
-	ofSetHexColor(0xFFFFFF);
     movie.draw(20,20);
-    fbo.draw(380, 20);
-    ofDrawBitmapString("hit space to show next frame", 20, 400);
+    fbo.draw(350, 20);
+    movie.draw(680,20);
+    fbo.draw(680, 20);
+    ofDrawBitmapString("hit space to process next frame", 20, 300);
 }
 
 //--------------------------------------------------------------
@@ -79,6 +80,7 @@ void testApp::frameUpdate() {
     movie.nextFrame();
     movie.update();
     fbo.begin();
+    ofClear(0.0);
     shader.begin();
     movie.draw(0,0);
     shader.end();
